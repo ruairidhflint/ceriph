@@ -30,7 +30,7 @@ function App() {
 const AppContainer = styled.div`
   // border: 1px solid white;
   width: 600px;
-  height: 450px;
+  height: 490px;
   display: flex;
   flex-direction: column;
   align-items: center;
