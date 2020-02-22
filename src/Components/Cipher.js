@@ -43,8 +43,8 @@ function Cipher({ inputValues, changeHandler, submit }) {
         </p>
       </div>
       <div className="buttons">
-        <button onClick={submit}>Encode</button>
-        <button>Decode</button>
+        <button onClick={() => submit('encode')}>Encode</button>
+        <button onClick={() => submit('decode')}>Decode</button>
       </div>
       <div className="result"></div>
     </CipherContainer>

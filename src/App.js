@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/globalStyles';
@@ -10,24 +10,34 @@ import About from './Components/About';
 import Result from './Components/Result';
 
 import { validator } from './helpers/errorHelper';
+import { messageSubstitution, messageDecoder } from './helpers/cipherHelpers';
 
-function App() {
+function App(props) {
   const [inputValues, setInputValues] = useState({
-    key: 'rory',
+    key: '',
     message: '',
     error: false,
   });
+
+  const [output, setOutput] = useState('');
 
   const changeHandler = e => {
     setInputValues({ ...inputValues, [e.target.name]: e.target.value });
   };
 
-  const submit = () => {
+  const submit = type => {
     setInputValues({ ...inputValues, error: false });
     const result = validator(inputValues);
 
     if (result) {
-      console.log(result);
+      if (type === 'decode') {
+        const code = messageSubstitution(result.message, result.key);
+        setOutput(code);
+      } else if (type === 'encode') {
+        const code = messageDecoder(result.message, result.key);
+        setOutput(code);
+      }
+      props.history.push('/result')
     } else {
       setInputValues({ ...inputValues, error: true });
     }
@@ -56,12 +66,7 @@ function App() {
             <Route
               exact
               path="/result"
-              render={props => (
-                <Result
-                  {...props}
-                  inputValues={inputValues}
-                />
-              )}
+              render={props => <Result {...props} inputValues={inputValues} output={output} />}
             />
           </section>
         </AppContainer>
@@ -71,7 +76,7 @@ function App() {
 }
 
 const AppContainer = styled.div`
-  // border: 1px solid white;
+  border: 1px solid ${props => props.theme.backgroundColor};
   width: 600px;
   height: 490px;
   display: flex;
@@ -82,4 +87,4 @@ const AppContainer = styled.div`
   }
 `;
 
-export default App;
+export default withRouter(App);

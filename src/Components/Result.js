@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, Redirect } from 'react-router-dom';
 
-function Result({ inputValues, result }) {
+function Result({ inputValues, output }) {
   if (!inputValues.key) {
     return <Redirect to="/" />;
   }
@@ -15,7 +15,10 @@ function Result({ inputValues, result }) {
       </p>
       <Link to="/about">Disclaimer</Link>
       <div className="output">
-          <p>{result ? result : "There has been an error, please try again."}</p>
+        <p>{output}</p>
+      </div>
+      <div className="return">
+        <Link to="/"> ←</Link>
       </div>
     </ResultContainer>
   );
@@ -29,7 +32,7 @@ const ResultContainer = styled.div`
   align-items: center;
 
   p {
-      width: 90%;
+    width: 90%;
   }
 
   p,
@@ -61,21 +64,31 @@ const ResultContainer = styled.div`
     }
   }
   .output {
-      height: 250px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid yellow;
+    margin-top: 1rem;
+    height: 220px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-      p {
-          font-family: ${props => props.theme.serifFont};
-          font-size: 1.8rem;
-          line-height: 2rem;
-          width: 100%;
+    p {
+      font-family: ${props => props.theme.serifFont};
+      font-size: 1.8rem;
+      line-height: 2rem;
+      width: 100%;
+
+      ::selection {
+          background-color: ${props => props.theme.accentColor};
+      }
+    }
+  }
+
+  .return {
+      a {
+          border: none;
+          font-size: 1.2rem;
       }
   }
-  
 `;
 
 export default Result;
