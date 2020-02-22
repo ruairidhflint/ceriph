@@ -7,6 +7,7 @@ import { Theme } from './styles/theme';
 
 import Cipher from './Components/Cipher';
 import About from './Components/About';
+import Result from './Components/Result';
 
 import { validator } from './helpers/errorHelper';
 
@@ -52,6 +53,16 @@ function App() {
               )}
             />
             <Route path="/about" component={About} />
+            <Route
+              exact
+              path="/result"
+              render={props => (
+                <Result
+                  {...props}
+                  inputValues={inputValues}
+                />
+              )}
+            />
           </section>
         </AppContainer>
       </div>

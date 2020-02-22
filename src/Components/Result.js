@@ -1,57 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
-function Cipher({ inputValues, changeHandler, submit }) {
+function Result({ inputValues }) {
+  if (!inputValues.key) {
+    return <Redirect to="/" />;
+  }
   return (
-    <CipherContainer>
+    <ResultContainer>
       <p>
-        Enter a private key and a message to encrypt or decode a message. Only
-        you and those with the key will be able to decode the message
-        successfully.
-      </p>{' '}
-      <Link to="/about"> Read more</Link>
-      <div className="inputs">
-        <input
-          type="text"
-          name="key"
-          value={inputValues.key}
-          onChange={changeHandler}
-          placeholder="Keyword"
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-          spellCheck="false"
-        />
-        <input
-          type="text"
-          name="message"
-          value={inputValues.message}
-          onChange={changeHandler}
-          placeholder="Message"
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-          spellCheck="false"
-        />
-      </div>
-      <div className="error">
-        <p style={inputValues.error ? { display: 'block' } : null}>
-          Your keyword must be one word between 3 and 12 characters. Your
-          message cannot exceed 256 characters. Only English alphabet letters
-          are pemitted.
-        </p>
-      </div>
-      <div className="buttons">
-        <button onClick={submit}>Encode</button>
-        <button>Decode</button>
-      </div>
-      <div className="result"></div>
-    </CipherContainer>
+        Below is your coded message. Only those with the your secret key{' '}
+        <span>{inputValues.key}</span> will be able to decode the message using
+        our decoder.
+      </p>
+      <Link to="/about">Disclaimer</Link>
+    </ResultContainer>
   );
 }
 
-const CipherContainer = styled.div`
+const ResultContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -64,6 +31,10 @@ const CipherContainer = styled.div`
     text-align: center;
     font-size: 1rem;
     line-height: 21px;
+
+    span {
+      color: ${props => props.theme.accentColor};
+    }
   }
 
   a {
@@ -79,7 +50,7 @@ const CipherContainer = styled.div`
     }
 
     :focus {
-        outline: none;
+      outline: none;
     }
   }
 
@@ -178,4 +149,4 @@ const CipherContainer = styled.div`
   }
 `;
 
-export default Cipher;
+export default Result;

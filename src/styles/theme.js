@@ -2,7 +2,8 @@ export const Theme = {
     backgroundColor: '#27282C',
     fontColor: '#EEEEEE',
     accentColor: '#E9B85A',
-    errorColor: '#c91c04',
+    underlineColor: 'rgba(255, 255, 255, 0.8)',
+    errorColor: '#ad2d2d',
     serifFont: 'Roboto Slab',
     textFont: 'Roboto'
   };
