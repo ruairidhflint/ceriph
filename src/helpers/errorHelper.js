@@ -2,6 +2,7 @@ export const validator = formData => {
   let submissionValues = {
     key: '',
     message: '',
+    error: false
   };
 
   // key validation

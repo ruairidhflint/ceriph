@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-function Cipher({ inputValues, changeHandler, submit }) {
+function Cipher({ inputValues, changeHandler, submit, error }) {
   return (
     <CipherContainer>
       <p>
@@ -26,6 +26,11 @@ function Cipher({ inputValues, changeHandler, submit }) {
           onChange={changeHandler}
           placeholder="Enter message to be encoded"
         />
+      </div>
+      <div className="error">
+          <p style={inputValues.error ? {'display': 'block'} : null}>Your keyword must be between 3 and 12 characters. Your message cannot exceed 256 characters.
+              Only English alphabet letters and spaces are pemitted.
+          </p>
       </div>
       <div className="buttons">
         <button onClick={submit}>Encode</button>
@@ -69,12 +74,11 @@ const CipherContainer = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 1rem;
 
     input {
       width: 85%;
       height: 3rem;
-      margin-bottom: 1rem;
+      margin-top: 1rem;
       background-color: inherit;
       border: none;
       border-bottom: 1px solid ${props => props.theme.fontColor};
@@ -96,12 +100,27 @@ const CipherContainer = styled.div`
     }
   }
 
+  .error{
+      height: 3rem;
+      width: 100%;
+
+      p {
+          font-size: 0.8rem;
+          width: 85%;
+          margin: 0 auto;
+          margin-top: 0.8rem;
+          line-height: 1rem;
+          color: ${props => props.theme.errorColor};
+          display: none;
+      }
+  }
+
   .buttons {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1.5rem;
+    margin-top: 0.4rem;
 
     button {
       width: 6.7rem;

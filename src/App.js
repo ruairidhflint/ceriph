@@ -11,16 +11,26 @@ import About from './Components/About';
 import { validator } from './helpers/errorHelper';
 
 function App() {
-  const [inputValues, setInputValues] = useState({ key: '', message: '' });
+  const [inputValues, setInputValues] = useState({
+    key: '',
+    message: '',
+    error: false,
+  });
 
   const changeHandler = e => {
     setInputValues({ ...inputValues, [e.target.name]: e.target.value });
   };
 
   const submit = () => {
+    setInputValues({ ...inputValues, error: false });
     const result = validator(inputValues);
-    console.log(result);
-  }
+
+    if (result) {
+      console.log(result);
+    } else {
+      setInputValues({ ...inputValues, error: true });
+    }
+  };
 
   return (
     <ThemeProvider theme={Theme}>
@@ -32,7 +42,14 @@ function App() {
             <Route
               exact
               path="/"
-              render={props => <Cipher {...props} inputValues={inputValues} changeHandler={changeHandler} submit={submit}/>}
+              render={props => (
+                <Cipher
+                  {...props}
+                  inputValues={inputValues}
+                  changeHandler={changeHandler}
+                  submit={submit}
+                />
+              )}
             />
             <Route path="/about" component={About} />
           </section>
