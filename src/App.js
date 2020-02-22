@@ -8,12 +8,19 @@ import { Theme } from './styles/theme';
 import Cipher from './Components/Cipher';
 import About from './Components/About';
 
+import { validator } from './helpers/errorHelper';
+
 function App() {
   const [inputValues, setInputValues] = useState({ key: '', message: '' });
 
   const changeHandler = e => {
     setInputValues({ ...inputValues, [e.target.name]: e.target.value });
   };
+
+  const submit = () => {
+    const result = validator(inputValues);
+    console.log(result);
+  }
 
   return (
     <ThemeProvider theme={Theme}>
@@ -25,7 +32,7 @@ function App() {
             <Route
               exact
               path="/"
-              render={props => <Cipher {...props} inputValues={inputValues} changeHandler={changeHandler} />}
+              render={props => <Cipher {...props} inputValues={inputValues} changeHandler={changeHandler} submit={submit}/>}
             />
             <Route path="/about" component={About} />
           </section>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-function Cipher({ inputValues, changeHandler }) {
+function Cipher({ inputValues, changeHandler, submit }) {
   return (
     <CipherContainer>
       <p>
@@ -28,7 +28,7 @@ function Cipher({ inputValues, changeHandler }) {
         />
       </div>
       <div className="buttons">
-        <button>Encode</button>
+        <button onClick={submit}>Encode</button>
         <button>Decode</button>
       </div>
       <div className="result"></div>
