@@ -11,6 +11,10 @@ import About from './Components/About';
 function App() {
   const [inputValues, setInputValues] = useState({ key: '', message: '' });
 
+  const changeHandler = e => {
+    setInputValues({ ...inputValues, [e.target.name]: e.target.value });
+  };
+
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
@@ -18,7 +22,11 @@ function App() {
         <AppContainer>
           <h1>CERIPH</h1>
           <section className="content">
-            <Route exact path="/" render={props => <Cipher {...props} inputValues={inputValues} />} />
+            <Route
+              exact
+              path="/"
+              render={props => <Cipher {...props} inputValues={inputValues} changeHandler={changeHandler} />}
+            />
             <Route path="/about" component={About} />
           </section>
         </AppContainer>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-function Cipher() {
+function Cipher({ inputValues, changeHandler }) {
   return (
     <CipherContainer>
       <p>
@@ -12,8 +12,20 @@ function Cipher() {
       </p>{' '}
       <Link to="/about"> Read more</Link>
       <div className="inputs">
-        <input type="text" placeholder="Enter key here" />
-        <input type="text" placeholder="Enter message to be encoded" />
+        <input
+          type="text"
+          name="key"
+          value={inputValues.key}
+          onChange={changeHandler}
+          placeholder="Enter key here"
+        />
+        <input
+          type="text"
+          name="message"
+          value={inputValues.message}
+          onChange={changeHandler}
+          placeholder="Enter message to be encoded"
+        />
       </div>
       <div className="buttons">
         <button>Encode</button>
