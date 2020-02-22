@@ -13,7 +13,7 @@ import { validator } from './helpers/errorHelper';
 
 function App() {
   const [inputValues, setInputValues] = useState({
-    key: '',
+    key: 'rory',
     message: '',
     error: false,
   });
