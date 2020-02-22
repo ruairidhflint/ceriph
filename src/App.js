@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
@@ -8,9 +8,9 @@ import { Theme } from './styles/theme';
 import Cipher from './Components/Cipher';
 import About from './Components/About';
 
-import { messageSubstitution, messageDecoder } from './Helpers';
-
 function App() {
+  const [inputValues, setInputValues] = useState({ key: '', message: '' });
+
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
@@ -18,7 +18,7 @@ function App() {
         <AppContainer>
           <h1>CERIPH</h1>
           <section className="content">
-            <Route exact path="/" component={Cipher} />
+            <Route exact path="/" render={props => <Cipher {...props} inputValues={inputValues} />} />
             <Route path="/about" component={About} />
           </section>
         </AppContainer>

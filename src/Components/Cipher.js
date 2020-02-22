@@ -19,8 +19,7 @@ function Cipher() {
         <button>Encode</button>
         <button>Decode</button>
       </div>
-      <div className="result">
-      </div>
+      <div className="result"></div>
     </CipherContainer>
   );
 }
@@ -114,7 +113,7 @@ const CipherContainer = styled.div`
       }
 
       :focus {
-          outline: none;
+        outline: none;
       }
     }
   }
