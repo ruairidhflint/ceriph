@@ -32,11 +32,14 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block; 
 }
+
 body {
+	font-size: 67.5%;
     line-height: 1;
     box-sizing: border-box;
     min-height: 100vh;
-    background-color: ${props => props.theme.backgroundColor};
+	background-color: ${props => props.theme.backgroundColor};
+	color: ${props => props.theme.fontColor};
 }
 ol, ul {
 	list-style: none;
@@ -59,8 +62,19 @@ table {
 	*, *:before, *:after {
 		box-sizing: inherit
 	}
-	body {
-		font-family: 'Roboto', sans-serif;
+
+	.container {
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	h1 {
+		font-family: ${props => props.theme.serifFont};
+		margin: 1rem;
+		font-size: 4rem;
 	}
 `;
 
