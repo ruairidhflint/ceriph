@@ -64,7 +64,7 @@ const ResultContainer = styled.div`
     }
   }
   .output {
-    margin-top: 1rem;
+    margin-top: 0.2rem;
     height: 220px;
     width: 100%;
     display: flex;
@@ -73,8 +73,8 @@ const ResultContainer = styled.div`
 
     p {
       font-family: ${props => props.theme.serifFont};
-      font-size: 1.8rem;
-      line-height: 2rem;
+      font-size: 2.2rem;
+      line-height: 2.2rem;
       width: 100%;
 
       ::selection {
