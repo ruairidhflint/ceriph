@@ -2,23 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { disclaimerText } from '../helpers/text';
+
 function Disclaimer() {
   return (
     <DisclaimerContainer>
       <div className="text">
+        <p>{disclaimerText.paragraph1}</p>
+        <p>{disclaimerText.paragraph2}</p>
         <p>
-          Ceriph uses a substitution cipher which, by modern standards, is far
-          from a safe method of encryption. It is to be used purely as a
-          learning tool or for fun personal use.
-        </p>
-        <p>
-          {' '}
-          Always encrypt any sensitive or confidential information using the
-          latest, approved technology.{' '}
-        </p>
-        <p>
-          More information on substitution ciphers and the methods to used to
-          crack them can be found on
+          {disclaimerText.paragraph3}
           <a
             href="https://en.wikipedia.org/wiki/Substitution_cipher"
             target="_blank"
@@ -66,7 +59,7 @@ const DisclaimerContainer = styled.div`
       border-bottom: ${props => props.theme.accentColor} 0.065rem solid;
       color: ${props => props.theme.fontColor};
       transition: color 0.3s ease-in-out;
-      font-size: 0.9rem;
+      font-size: 1rem;
 
       :hover {
         transition: all 0.3s ease-in-out;

@@ -7,3 +7,9 @@ export const aboutText = {
     paragraph2: 'Substitution ciphers are a fun way to introduce crytography and a quick and easy way to obscure moderately private information between friends, but are easily cracked by a persistent and knowledgeable codebreaker. The larger the message, the higher the chance of a decoding by frequency anaylis.'
 }
 
+export const disclaimerText = {
+    paragraph1: 'Ceriph uses a substitution cipher which, by modern standards, is far from a safe method of encryption. It is to be used purely as a learning tool or for fun personal use.',
+    paragraph2: 'Always encrypt any sensitive or confidential information using thelatest, approved technology.',
+    paragraph3: 'More information on substitution ciphers and the methods to used to crack them can be found on'
+}
+
