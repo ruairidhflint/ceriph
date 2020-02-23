@@ -13,7 +13,7 @@ function Result({ inputValues, output }) {
         <span>{inputValues.key}</span> will be able to decode the message using
         our decoder.
       </p>
-      <Link to="/about">Disclaimer</Link>
+      <Link to="/disclaimer">Disclaimer</Link>
       <div className="output">
         <p>{output}</p>
       </div>
