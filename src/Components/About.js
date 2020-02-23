@@ -2,23 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { aboutText } from '../helpers/text';
+
 function About() {
   return (
     <AboutContainer>
       <div className="text">
-        <p>
-          Ceriph is a simple substitution cipher built with JavaScript.
-          Substitution ciphers use a secret key to manipulate the positions of
-          letters in the standard alphabet, allowing for a message to be
-          transposed into a coded form.
-        </p>
-        <p>
-          Substitution ciphers are a fun way to introduce crytography and a
-          quick and easy way to obscure moderately private information between
-          friends, but are easily cracked by a persistent and knowledgeable code
-          breaker. The larger the message, the higher the chance of a decoding
-          by frequency anaylis.
-        </p>
+        <p>{aboutText.paragraph1}</p>
+        <p>{aboutText.paragraph2}</p>
         <p>
           Ceriph was built by{' '}
           <a
@@ -85,7 +76,7 @@ const AboutContainer = styled.div`
       border-bottom: ${props => props.theme.accentColor} 0.065rem solid;
       color: ${props => props.theme.fontColor};
       transition: color 0.3s ease-in-out;
-      font-size: 0.9rem;
+      font-size: 1rem;
 
       :hover {
         transition: all 0.3s ease-in-out;
@@ -100,7 +91,7 @@ const AboutContainer = styled.div`
   }
 
   .return {
-      margin-top: 2rem;
+    margin-top: 2rem;
     a {
       border: none;
       font-size: 1.2rem;
