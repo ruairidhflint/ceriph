@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { disclaimerText, test } from '../helpers/text';
+import { disclaimerText } from '../helpers/text';
 
 function Disclaimer() {
   return (

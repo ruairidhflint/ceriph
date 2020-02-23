@@ -12,6 +12,7 @@ import Result from './Components/Result';
 
 import { validator } from './helpers/errorHelper';
 import { messageSubstitution, messageDecoder } from './helpers/cipherHelpers';
+import { titleText } from './helpers/text';
 
 function App(props) {
   const [inputValues, setInputValues] = useState({
@@ -27,7 +28,7 @@ function App(props) {
   };
 
   const submit = type => {
-    console.log(inputValues.message.length)
+    console.log(inputValues.message.length);
     setInputValues({ ...inputValues, error: false });
     const result = validator(inputValues);
 
@@ -39,7 +40,7 @@ function App(props) {
         const code = messageDecoder(result.message, result.key);
         setOutput(code);
       }
-      props.history.push('/result')
+      props.history.push('/result');
     } else {
       setInputValues({ ...inputValues, error: true });
     }
@@ -50,7 +51,7 @@ function App(props) {
       <GlobalStyle />
       <div className="container">
         <AppContainer>
-          <h1>CERIPH</h1>
+          <h1>{titleText}</h1>
           <section className="content">
             <Route
               exact
@@ -69,7 +70,9 @@ function App(props) {
             <Route
               exact
               path="/result"
-              render={props => <Result {...props} inputValues={inputValues} output={output} />}
+              render={props => (
+                <Result {...props} inputValues={inputValues} output={output} />
+              )}
             />
           </section>
         </AppContainer>
