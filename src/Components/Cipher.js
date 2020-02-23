@@ -110,7 +110,7 @@ const CipherContainer = styled.div`
   }
 
   .error {
-    height: 3rem;
+    min-height: 3rem;
     width: 100%;
 
     p {
