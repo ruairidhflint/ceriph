@@ -9,7 +9,7 @@ function Result({ inputValues, output }) {
   return (
     <ResultContainer>
       <p>
-        Below is your coded message. Only those with the your secret key{' '}
+        Below is your coded message. Only those with the the secret key{' '}
         <span>{inputValues.key}</span> will be able to decode the message using
         our decoder.
       </p>
