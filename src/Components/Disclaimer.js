@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-function About() {
+function Disclaimer() {
   return (
-    <AboutContainer>
+    <DisclaimerContainer>
       <div className="text">
         <p>
           Ceriph is a simple substitution cipher built with JavaScript.
@@ -51,11 +51,11 @@ function About() {
       <div className="return">
         <Link to="/"> ←</Link>
       </div>
-    </AboutContainer>
+    </DisclaimerContainer>
   );
 }
 
-const AboutContainer = styled.div`
+const DisclaimerContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -100,7 +100,7 @@ const AboutContainer = styled.div`
   }
 
   .return {
-      margin-top: 2rem;
+    margin-top: 2rem;
     a {
       border: none;
       font-size: 1.2rem;
@@ -119,4 +119,4 @@ const AboutContainer = styled.div`
   }
 `;
 
-export default About;
+export default Disclaimer;
