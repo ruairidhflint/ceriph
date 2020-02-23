@@ -65,7 +65,7 @@ const ResultContainer = styled.div`
   }
   .output {
     margin-top: 0.2rem;
-    height: 220px;
+    min-height: 220px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -76,18 +76,23 @@ const ResultContainer = styled.div`
       font-size: 2.2rem;
       line-height: 2.2rem;
       width: 100%;
+      word-break: break-all;
 
       ::selection {
-          background-color: ${props => props.theme.accentColor};
+        background-color: ${props => props.theme.accentColor};
+      }
+
+      @media(max-width: 601px){
+        width: 95%;
       }
     }
   }
 
   .return {
-      a {
-          border: none;
-          font-size: 1.2rem;
-      }
+    a {
+      border: none;
+      font-size: 1.2rem;
+    }
   }
 `;
 

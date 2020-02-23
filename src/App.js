@@ -27,6 +27,7 @@ function App(props) {
   };
 
   const submit = type => {
+    console.log(inputValues.message.length)
     setInputValues({ ...inputValues, error: false });
     const result = validator(inputValues);
 
