@@ -7,45 +7,26 @@ function Disclaimer() {
     <DisclaimerContainer>
       <div className="text">
         <p>
-          Ceriph is a simple substitution cipher built with JavaScript.
-          Substitution ciphers use a secret key to manipulate the positions of
-          letters in the standard alphabet, allowing for a message to be
-          transposed into a coded form.
+          Ceriph uses a substitution cipher which, by modern standards, is far
+          from a safe method of encryption. It is to be used purely as a
+          learning tool or for fun personal use.
         </p>
         <p>
-          Substitution ciphers are a fun way to introduce crytography and a
-          quick and easy way to obscure moderately private information between
-          friends, but are easily cracked by a persistent and knowledgeable code
-          breaker. The larger the message, the higher the chance of a decoding
-          by frequency anaylis.
+          {' '}
+          Always encrypt any sensitive or confidential information using the
+          latest, approved technology.{' '}
         </p>
         <p>
-          Ceriph was built by{' '}
+          More information on substitution ciphers and the methods to used to
+          crack them can be found on
           <a
-            href="https://rory.codes"
+            href="https://en.wikipedia.org/wiki/Substitution_cipher"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Rory Flint
-          </a>{' '}
-          during a series of one day build projects. Feel free to check out the
-          source code{' '}
-          <a
-            href="https://github.com/ruairidhflint/ceriph"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            here
-          </a>{' '}
-          or get in touch on on{' '}
-          <a
-            href="https://twitter.com/MrRoryFlint"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Twitter
+            {' '}
+            Wikipedia.
           </a>
-          .
         </p>
       </div>
       <div className="return">

@@ -2,15 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { cipherText, errorMessage } from '../helpers/text';
+
 function Cipher({ inputValues, changeHandler, submit }) {
   return (
     <CipherContainer>
-      <p>
-        Enter a private key and a message to encrypt or decode a message. Only
-        you and those with the key will be able to decode the message
-        successfully.
-      </p>{' '}
-      <Link to="/about"> Read more</Link>
+      <p>{cipherText}</p> <Link to="/about"> Read more</Link>
       <div className="inputs">
         <input
           type="text"
@@ -37,9 +34,7 @@ function Cipher({ inputValues, changeHandler, submit }) {
       </div>
       <div className="error">
         <p style={inputValues.error ? { display: 'block' } : null}>
-          Your keyword must be one word between 3 and 12 characters. Your
-          message cannot exceed 256 characters. Only English alphabet letters
-          are pemitted.
+          {errorMessage}
         </p>
       </div>
       <div className="buttons">
@@ -79,7 +74,7 @@ const CipherContainer = styled.div`
     }
 
     :focus {
-        outline: none;
+      outline: none;
     }
   }
 
