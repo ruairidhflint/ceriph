@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Clone this repo to your local machine, run `npm install` to install the minimal dependencies required and then run `npm start` to begin running the application on `http://localhost:3000/
+Clone this repo to your local machine, run `npm install` to install the minimal dependencies required and then run `npm start` to begin running the application on `http://localhost:3000/`
 
 ## Deployment
 
