@@ -28,7 +28,7 @@ function About() {
           >
             here
           </a>{' '}
-          or get in touch on on{' '}
+          or get in touch on{' '}
           <a
             href="https://twitter.com/MrRoryFlint"
             target="_blank"
