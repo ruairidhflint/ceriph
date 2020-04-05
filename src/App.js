@@ -23,11 +23,11 @@ function App(props) {
 
   const [output, setOutput] = useState('');
 
-  const changeHandler = e => {
+  const changeHandler = (e) => {
     setInputValues({ ...inputValues, [e.target.name]: e.target.value });
   };
 
-  const submit = type => {
+  const submit = (type) => {
     setInputValues({ ...inputValues, error: false });
     const result = validator(inputValues);
 
@@ -55,7 +55,7 @@ function App(props) {
             <Route
               exact
               path="/"
-              render={props => (
+              render={(props) => (
                 <Cipher
                   {...props}
                   inputValues={inputValues}
@@ -69,7 +69,7 @@ function App(props) {
             <Route
               exact
               path="/result"
-              render={props => (
+              render={(props) => (
                 <Result {...props} inputValues={inputValues} output={output} />
               )}
             />
@@ -81,7 +81,7 @@ function App(props) {
 }
 
 const AppContainer = styled.div`
-  border: 1px solid ${props => props.theme.backgroundColor};
+  border: 1px solid ${(props) => props.theme.backgroundColor};
   width: 600px;
   height: 490px;
   display: flex;
