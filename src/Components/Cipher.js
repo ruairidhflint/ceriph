@@ -33,9 +33,7 @@ function Cipher({ inputValues, changeHandler, submit }) {
         />
       </div>
       <div className="error">
-        <p style={inputValues.error ? { display: 'block' } : null}>
-          {errorMessage}
-        </p>
+        <p style={inputValues.error ? { display: 'block' } : null}>{errorMessage}</p>
       </div>
       <div className="buttons">
         <button onClick={() => submit('encode')}>Encode</button>
@@ -55,7 +53,7 @@ const CipherContainer = styled.div`
 
   p,
   a {
-    font-family: ${props => props.theme.textFont};
+    font-family: ${(props) => props.theme.textFont};
     text-align: center;
     font-size: 1rem;
     line-height: 21px;
@@ -63,14 +61,14 @@ const CipherContainer = styled.div`
 
   a {
     text-decoration: none;
-    border-bottom: ${props => props.theme.underlineColor} 0.025rem solid;
-    color: ${props => props.theme.fontColor};
+    border-bottom: ${(props) => props.theme.underlineColor} 0.025rem solid;
+    color: ${(props) => props.theme.fontColor};
     transition: color 0.3s ease-in-out;
     font-size: 0.9rem;
 
     :hover {
       transition: all 0.3s ease-in-out;
-      color: ${props => props.theme.accentColor};
+      color: ${(props) => props.theme.accentColor};
     }
 
     :focus {
@@ -90,20 +88,20 @@ const CipherContainer = styled.div`
       margin-top: 1rem;
       background-color: inherit;
       border: none;
-      border-bottom: 1px solid ${props => props.theme.fontColor};
+      border-bottom: 1px solid ${(props) => props.theme.fontColor};
       text-align: center;
       font-size: 1rem;
       transition: border-bottom 0.3s ease-in-out;
-      color: ${props => props.theme.fontColor};
+      color: ${(props) => props.theme.fontColor};
 
       :hover {
         transition: border-bottom 0.3s ease-in-out;
-        border-bottom: 1px solid ${props => props.theme.accentColor};
+        border-bottom: 1px solid ${(props) => props.theme.accentColor};
       }
 
       :focus {
         outline: none;
-        border-bottom: 1px solid ${props => props.theme.accentColor};
+        border-bottom: 1px solid ${(props) => props.theme.accentColor};
         transition: border-bottom 0.3s ease-in-out;
       }
     }
@@ -119,7 +117,7 @@ const CipherContainer = styled.div`
       margin: 0 auto;
       margin-top: 0.8rem;
       line-height: 1rem;
-      color: ${props => props.theme.errorColor};
+      color: ${(props) => props.theme.errorColor};
       display: none;
     }
   }
@@ -135,19 +133,20 @@ const CipherContainer = styled.div`
       width: 6.7rem;
       height: 2.1rem;
       background-color: inherit;
-      color: ${props => props.theme.fontColor};
+      color: ${(props) => props.theme.fontColor};
       transition: all 0.2s ease-in-out;
-      font-family: ${props => props.theme.serifFont};
+      font-family: ${(props) => props.theme.serifFont};
       font-size: 0.9rem;
       margin: 0 1rem;
       letter-spacing: 0.1rem;
       cursor: pointer;
       font-weight: lighter;
       opacity: 0.88;
+      border: 1px solid ${(props) => props.theme.fontColor};
 
       :hover {
-        color: ${props => props.theme.accentColor};
-        border: 1px solid ${props => props.theme.accentColor};
+        color: ${(props) => props.theme.accentColor};
+        border: 1px solid ${(props) => props.theme.accentColor};
         opacity: 1;
         transition: all 0.2s ease-in-out;
       }
@@ -166,7 +165,7 @@ const CipherContainer = styled.div`
     align-items: center;
 
     p {
-      font-family: ${props => props.theme.serifFont};
+      font-family: ${(props) => props.theme.serifFont};
       font-size: 1.4rem;
       line-height: 2rem;
     }
