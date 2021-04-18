@@ -7,7 +7,7 @@ import { cipherText, errorMessage } from '../helpers/text';
 function Cipher({ inputValues, changeHandler, submit }) {
   return (
     <CipherContainer>
-      <p>{cipherText}</p> <Link to="/about"> Read more</Link>
+      <p>{cipherText}</p> <Link to="/about"> Continue reading</Link>
       <div className="inputs">
         <input
           type="text"
