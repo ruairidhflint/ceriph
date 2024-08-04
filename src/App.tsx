@@ -1,19 +1,29 @@
-import { lazy, useState, Suspense } from "react";
+import React, { lazy, useState, Suspense } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 
 import { validator } from "./helpers/errorHelper";
 import { messageSubstitution, messageDecoder } from "./helpers/cipherHelpers";
-import Spinner from "./components/Spinner";
-import { titleText } from "./contants/text";
 import GlobalStyle from "./styles/globalStyles";
 import { Theme } from "./styles/theme";
 
-const Cipher = lazy(() => import("./components/Cipher"));
+// Import smaller components directly
+import Spinner from "./components/Spinner";
+import Cipher from "./components/Cipher";
+import { titleText } from "./contants/text";
+
+// Lazy load larger or less frequently used components
 const About = lazy(() => import("./components/About"));
 const Disclaimer = lazy(() => import("./components/Disclaimer"));
 const Result = lazy(() => import("./components/Result"));
+
+const Layout = ({ children }: { children: React.ReactNode }) => (
+  <AppContainer>
+    <h1>{titleText}</h1>
+    <section className="content">{children}</section>
+  </AppContainer>
+);
 
 function App() {
   const navigate = useNavigate();
@@ -27,16 +37,7 @@ function App() {
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    // Allow only alphabet characters
-    let newValue = value.replace(/[^a-zA-Z ]/g, "");
-
-    // Convert to lowercase if the last character is uppercase
-    if (newValue.length > 0 && newValue[newValue.length - 1].match(/[A-Z]/)) {
-      newValue =
-        newValue.slice(0, -1) + newValue[newValue.length - 1].toLowerCase();
-    }
-
+    const newValue = value.replace(/[^a-zA-Z ]/g, "").toLowerCase();
     setInputValues((prevValues) => ({
       ...prevValues,
       [name]: newValue,
@@ -48,18 +49,14 @@ function App() {
     const result = validator(inputValues);
 
     if (result) {
-      if (type === "decode") {
-        const code = messageSubstitution(result.message, result.key);
-        setOutput(code);
-        navigate("/result");
-      } else if (type === "encode") {
-        const code = messageDecoder(result.message, result.key);
-        setOutput(code);
-
-        navigate("/result");
-      } else {
-        setInputValues({ ...inputValues, error: true });
-      }
+      const code =
+        type === "decode"
+          ? messageSubstitution(result.message, result.key)
+          : messageDecoder(result.message, result.key);
+      setOutput(code);
+      navigate("/result");
+    } else {
+      setInputValues({ ...inputValues, error: true });
     }
   };
 
@@ -67,31 +64,44 @@ function App() {
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
       <div className="container">
-        <Suspense fallback={<Spinner />}>
-          <AppContainer>
-            <h1>{titleText}</h1>
-            <section className="content">
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Cipher
-                      inputValues={inputValues}
-                      changeHandler={changeHandler}
-                      submit={submit}
-                    />
-                  }
+        <Layout>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Cipher
+                  inputValues={inputValues}
+                  changeHandler={changeHandler}
+                  submit={submit}
                 />
-                <Route path="/about" element={<About />} />
-                <Route path="/disclaimer" element={<Disclaimer />} />
-                <Route
-                  path="/result"
-                  element={<Result inputValues={inputValues} output={output} />}
-                />
-              </Routes>
-            </section>
-          </AppContainer>
-        </Suspense>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <Suspense fallback={<Spinner />}>
+                  <About />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/disclaimer"
+              element={
+                <Suspense fallback={<Spinner />}>
+                  <Disclaimer />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/result"
+              element={
+                <Suspense fallback={<Spinner />}>
+                  <Result inputValues={inputValues} output={output} />
+                </Suspense>
+              }
+            />
+          </Routes>
+        </Layout>
       </div>
     </ThemeProvider>
   );
@@ -104,8 +114,26 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .content {
     width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    border: none;
+    padding: 20px;
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .content {
+      padding: 0 10px;
+    }
   }
 `;
 
