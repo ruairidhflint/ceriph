@@ -12,7 +12,7 @@ type CipherProps = {
   submit: (type: "encode" | "decode") => void;
 };
 
-function Cipher({ inputValues, changeHandler, submit }: CipherProps) {
+export function Cipher({ inputValues, changeHandler, submit }: CipherProps) {
   return (
     <CipherContainer>
       <p>{cipherText}</p> <Link to="/about"> Continue reading</Link>
@@ -49,7 +49,6 @@ function Cipher({ inputValues, changeHandler, submit }: CipherProps) {
         <button onClick={() => submit("encode")}>Encode</button>
         <button onClick={() => submit("decode")}>Decode</button>
       </div>
-      <div className="result"></div>
     </CipherContainer>
   );
 }
@@ -181,5 +180,3 @@ const CipherContainer = styled.div`
     }
   }
 `;
-
-export default Cipher;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { aboutText } from "../contants/text";
 
-function About() {
+export function About() {
   return (
     <AboutContainer>
       <div className="text">
@@ -11,7 +11,7 @@ function About() {
         <p>
           Ceriph was built by{" "}
           <a
-            href="https://rory.codes"
+            href="https://roryflint.co.uk"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -107,5 +107,3 @@ const AboutContainer = styled.div`
     }
   }
 `;
-
-export default About;

@@ -8,7 +8,7 @@ type ResultProps = {
   output: string;
 };
 
-function Result({ inputValues, output }: ResultProps) {
+export function Result({ inputValues, output }: ResultProps) {
   if (!inputValues.key) {
     return <Navigate to="/" />;
   }
@@ -101,5 +101,3 @@ const ResultContainer = styled.div`
     }
   }
 `;
-
-export default Result;

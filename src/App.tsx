@@ -1,4 +1,4 @@
-import React, { lazy, useState, Suspense } from "react";
+import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
@@ -6,17 +6,13 @@ import { ThemeProvider } from "styled-components";
 import { validator } from "./helpers/errorHelper";
 import { messageSubstitution, messageDecoder } from "./helpers/cipherHelpers";
 import GlobalStyle from "./styles/globalStyles";
-import { Theme } from "./styles/theme";
 
-// Import smaller components directly
-import Spinner from "./components/Spinner";
-import Cipher from "./components/Cipher";
+import { Cipher } from "./pages/Cipher";
 import { titleText } from "./contants/text";
-
-// Lazy load larger or less frequently used components
-const About = lazy(() => import("./components/About"));
-const Disclaimer = lazy(() => import("./components/Disclaimer"));
-const Result = lazy(() => import("./components/Result"));
+import { Disclaimer } from "./pages/Disclaimer";
+import { About } from "./pages/About";
+import { Result } from "./pages/Result";
+import { Theme } from "./styles/theme";
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <AppContainer>
@@ -76,29 +72,11 @@ function App() {
                 />
               }
             />
-            <Route
-              path="/about"
-              element={
-                <Suspense fallback={<Spinner />}>
-                  <About />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/disclaimer"
-              element={
-                <Suspense fallback={<Spinner />}>
-                  <Disclaimer />
-                </Suspense>
-              }
-            />
+            <Route path="/about" element={<About />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
             <Route
               path="/result"
-              element={
-                <Suspense fallback={<Spinner />}>
-                  <Result inputValues={inputValues} output={output} />
-                </Suspense>
-              }
+              element={<Result inputValues={inputValues} output={output} />}
             />
           </Routes>
         </Layout>

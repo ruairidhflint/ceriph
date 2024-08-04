@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { disclaimerText } from "../contants/text";
 
-function Disclaimer() {
+export function Disclaimer() {
   return (
     <DisclaimerContainer>
       <div className="text">
@@ -90,5 +90,3 @@ const DisclaimerContainer = styled.div`
     }
   }
 `;
-
-export default Disclaimer;
