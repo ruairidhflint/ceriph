@@ -1,62 +1,49 @@
+import { stripSpecialChars } from "./sanitize";
+
 const alphabet = "abcdefghijklmnopqrstuvwxyz-";
 
-function cypherKeyword(word: string) {
-  const keyword = word
-    .toLowerCase()
-    .replace(/[., /#!$%?!^&*;:{}=_-`~()]/g, "")
+function buildCipherAlphabet(keyword: string) {
+  const cleaned = stripSpecialChars(keyword.toLowerCase())
     .split("")
-    .filter((item, index, array) => array.indexOf(item) === Number(index))
+    .filter((item, index, array) => array.indexOf(item) === index)
     .join("");
 
-  let newString = alphabet;
-
-  keyword.split("").forEach((char) => {
-    newString = newString.replace(char, "");
+  let remaining = alphabet;
+  cleaned.split("").forEach((char) => {
+    remaining = remaining.replace(char, "");
   });
 
-  return keyword + newString;
+  return cleaned + remaining;
 }
 
-export function messageSubstitution(message: string, keyword: string) {
-  const cypher = cypherKeyword(keyword);
+export function encode(message: string, keyword: string) {
+  const cipher = buildCipherAlphabet(keyword);
 
-  const message_input = message
+  const indices = message
     .toLowerCase()
     .replace(/ /g, "-")
-    .replace(/[.,/#!$%?!^&*;:{}=_`~()]/g, "")
+    .replace(/[.,/#!$%?^&*;:{}=_`~()]/g, "")
     .split("")
-    .map((letter) => {
-      return alphabet.indexOf(letter);
-    });
+    .map((letter) => alphabet.indexOf(letter));
 
-  const codedMessage = message_input
-    .map((num) => {
-      return cypher[num];
-    })
+  return indices
+    .map((num) => cipher[num])
     .join("")
     .replace(/-/g, " ");
-
-  return codedMessage;
 }
 
-export function messageDecoder(codedMessage: string, keyword: string) {
-  const cypher = cypherKeyword(keyword);
+export function decode(codedMessage: string, keyword: string) {
+  const cipher = buildCipherAlphabet(keyword);
 
-  const message_input = codedMessage
+  const indices = codedMessage
     .toLowerCase()
     .replace(/ /g, "-")
-    .replace(/[.,/#!$%?!^&*;:{}=_`~()]/g, "")
+    .replace(/[.,/#!$%?^&*;:{}=_`~()]/g, "")
     .split("")
-    .map((letter) => {
-      return cypher.indexOf(letter);
-    });
+    .map((letter) => cipher.indexOf(letter));
 
-  const decodedMessage = message_input
-    .map((num) => {
-      return alphabet[num];
-    })
+  return indices
+    .map((num) => alphabet[num])
     .join("")
     .replace(/-/g, " ");
-
-  return decodedMessage;
 }

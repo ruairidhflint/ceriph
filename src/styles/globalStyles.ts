@@ -40,6 +40,7 @@ body {
     min-height: 100vh;
 	background-color: ${(props) => props.theme.backgroundColor};
 	color: ${(props) => props.theme.fontColor};
+	transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 ol, ul {
 	list-style: none;

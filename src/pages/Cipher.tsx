@@ -1,57 +1,117 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { cipherText, errorMessage } from "../contants/text";
+import { cipherText } from "../constants/text";
+import { CipherDefinition } from "../ciphers";
 
 type CipherProps = {
+  ciphers: CipherDefinition[];
+  selectedCipherId: string;
   inputValues: {
     key: string;
     message: string;
-    error: boolean;
   };
-  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error: string | false;
+  changeHandler: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   submit: (type: "encode" | "decode") => void;
+  hasHistory: boolean;
 };
 
-export function Cipher({ inputValues, changeHandler, submit }: CipherProps) {
+const MAX_MESSAGE_LENGTH = 256;
+
+export function Cipher({
+  ciphers,
+  selectedCipherId,
+  inputValues,
+  error,
+  changeHandler,
+  submit,
+  hasHistory,
+}: CipherProps) {
+  const charCount = inputValues.message.length;
+  const nearLimit = charCount > MAX_MESSAGE_LENGTH * 0.85;
+  const overLimit = charCount > MAX_MESSAGE_LENGTH;
+  const selectedCipher = ciphers.find((c) => c.id === selectedCipherId)!;
+
   return (
     <CipherContainer>
-      <p>{cipherText}</p> <Link to="/about"> Continue reading</Link>
-      <div className="inputs">
-        <input
-          type="text"
-          name="key"
-          value={inputValues.key}
+      <p>{cipherText}</p>
+      <Link to="/about">Continue reading</Link>
+      <div className="cipher-select">
+        <select
+          name="cipher"
+          value={selectedCipherId}
           onChange={changeHandler}
-          placeholder="Keyword"
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-          spellCheck="false"
-        />
+          aria-label="Select cipher type"
+        >
+          {ciphers.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="inputs">
+        {selectedCipher.needsKey && (
+          <input
+            type="text"
+            name="key"
+            value={inputValues.key}
+            onChange={changeHandler}
+            placeholder={selectedCipher.keyPlaceholder || "Key"}
+            aria-label={selectedCipher.keyLabel || "Secret key"}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck="false"
+          />
+        )}
         <input
           type="text"
           name="message"
           value={inputValues.message}
           onChange={changeHandler}
           placeholder="Message"
+          aria-label="Message to encode or decode"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck="false"
         />
+        <CharCount $nearLimit={nearLimit} $overLimit={overLimit}>
+          {charCount} / {MAX_MESSAGE_LENGTH}
+        </CharCount>
       </div>
-      <div className="error">
-        <p style={inputValues.error ? { display: "block" } : undefined}>
-          {errorMessage}
-        </p>
+      <div className="error" role="alert" aria-live="assertive">
+        {error && <p>{error}</p>}
       </div>
       <div className="buttons">
         <button onClick={() => submit("encode")}>Encode</button>
         <button onClick={() => submit("decode")}>Decode</button>
       </div>
+      {hasHistory && (
+        <div className="history-link">
+          <Link to="/history">History</Link>
+        </div>
+      )}
     </CipherContainer>
   );
 }
+
+const CharCount = styled.span<{ $nearLimit: boolean; $overLimit: boolean }>`
+  font-family: ${(props) => props.theme.textFont};
+  font-size: 0.75rem;
+  margin-top: 0.4rem;
+  opacity: 0.5;
+  transition: all 0.2s ease-in-out;
+  color: ${(props) =>
+    props.$overLimit
+      ? props.theme.errorColor
+      : props.$nearLimit
+        ? props.theme.accentColor
+        : props.theme.fontColor};
+`;
 
 const CipherContainer = styled.div`
   width: 100%;
@@ -72,7 +132,6 @@ const CipherContainer = styled.div`
     text-decoration: none;
     border-bottom: ${(props) => props.theme.underlineColor} 0.025rem solid;
     color: ${(props) => props.theme.fontColor};
-    color: ${(props) => props.theme.fontColor};
     transition: color 0.3s ease-in-out;
     font-size: 0.9rem;
 
@@ -82,7 +141,38 @@ const CipherContainer = styled.div`
     }
 
     &:focus {
-      outline: none;
+      outline: 2px solid ${(props) => props.theme.accentColor};
+      outline-offset: 2px;
+    }
+  }
+
+  .cipher-select {
+    margin-top: 1.5rem;
+
+    select {
+      background: transparent;
+      border: 1px solid ${(props) => props.theme.mutedColor ?? "rgba(255,255,255,0.3)"};
+      color: ${(props) => props.theme.fontColor};
+      font-family: ${(props) => props.theme.serifFont};
+      font-size: 0.85rem;
+      padding: 0.35rem 0.8rem;
+      cursor: pointer;
+      letter-spacing: 0.05rem;
+      transition: all 0.2s ease-in-out;
+
+      option {
+        background: ${(props) => props.theme.backgroundColor};
+        color: ${(props) => props.theme.fontColor};
+      }
+
+      &:hover {
+        border-color: ${(props) => props.theme.accentColor};
+      }
+
+      &:focus {
+        outline: 2px solid ${(props) => props.theme.accentColor};
+        outline-offset: 2px;
+      }
     }
   }
 
@@ -111,7 +201,7 @@ const CipherContainer = styled.div`
 
       &:focus {
         outline: none;
-        border-bottom: 1px solid ${(props) => props.theme.accentColor};
+        border-bottom: 2px solid ${(props) => props.theme.accentColor};
         transition: border-bottom 0.3s ease-in-out;
       }
     }
@@ -128,7 +218,6 @@ const CipherContainer = styled.div`
       margin-top: 0.8rem;
       line-height: 1rem;
       color: ${(props) => props.theme.errorColor};
-      display: none;
     }
   }
 
@@ -162,21 +251,32 @@ const CipherContainer = styled.div`
       }
 
       &:focus {
-        outline: none;
+        outline: 2px solid ${(props) => props.theme.accentColor};
+        outline-offset: 2px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      flex-direction: column;
+      gap: 0.6rem;
+
+      button {
+        margin: 0;
       }
     }
   }
 
-  .result {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .history-link {
+    margin-top: 1rem;
 
-    p {
-      font-family: ${(props) => props.theme.serifFont};
-      font-size: 1.4rem;
-      line-height: 2rem;
+    a {
+      font-size: 0.8rem;
+      opacity: 0.5;
+      border-bottom: none;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 `;
