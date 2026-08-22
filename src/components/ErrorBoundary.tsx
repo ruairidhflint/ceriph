@@ -29,6 +29,8 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 }
 
+// This styled component is not a Fast Refresh export.
+// eslint-disable-next-line react-refresh/only-export-components
 const ErrorContainer = styled.div`
   display: flex;
   flex-direction: column;
